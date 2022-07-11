@@ -3,6 +3,7 @@ from home.models import Contact
 from blog.models import Post
 from django.contrib import messages 
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def home(request):
     return render(request, 'home/home.html')
@@ -18,7 +19,6 @@ def contact(request):
             messages.success(request, 'Your message has been sent')
             contact = Contact(name=name, email = email, phone = phone, content = msg)
             contact.save()
-        print(name, email, phone, msg)
     return render(request, 'home/contact.html')
 def about(request):
     return render(request, 'home/about.html')
@@ -66,3 +66,20 @@ def handleSignUp(request):
         return redirect('/')
     else:
         return HttpResponse('404-Error Not Found')
+
+def handleLogIn(request):
+    if request.method == 'POST':
+        loginUserName = request.POST['loginusername']
+        loginPass = request.POST['loginpass']
+        user = authenticate(username = loginUserName, password = loginPass)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect('/')
+        else:
+            messages.error(request, "Ivalid Credentials, Try Again")
+            return redirect('/')
+def handleLogOut(request):
+    logout(request)
+    messages.success(request, "Successfully Logged Out")
+    return redirect('/')
