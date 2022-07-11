@@ -69,7 +69,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="/signup" method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">User Name</label>
                             <input type="text" class="form-control" id="username" name="username"
@@ -98,6 +98,7 @@
                             <label for="pass2" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Enter your Password Again">
                         </div>
+                        {% csrf_token %}
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                     </form>
