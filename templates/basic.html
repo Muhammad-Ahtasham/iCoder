@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
@@ -20,7 +21,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/">Home</a>
+                        <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page"
+                            href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% block blogactive %}{% endblock blogactive %}" href="/blog">Blog</a>
@@ -29,23 +31,115 @@
                         <a class="nav-link {% block aboutactive %}{% endblock aboutactive %}" href="/about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% block contactactive %}{% endblock contactactive %}" href="/contact">Contact</a>
+                        <a class="nav-link {% block contactactive %}{% endblock contactactive %}"
+                            href="/contact">Contact</a>
                     </li>
 
                 </ul>
                 <form method="get" action="/search" class="d-flex" role="search">
-                    <input class="form-control me-2" name="query" id="search" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" name="query" id="search" type="search" placeholder="Search"
+                        aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <!-- Button to trigger signup modal -->
+                <button type="button" class="btn btn-outline-success mx-1" data-bs-toggle="modal" data-bs-target="#signupmodel">
+                    SignUp
+                </button>
+                <button type="button" class="btn btn-outline-success mx-1" data-bs-toggle="modal" data-bs-target="#loginmodel">
+                    Login
+                </button>
             </div>
         </div>
     </nav>
-    {% for message in messages  %}
+    {% for message in messages %}
     <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
         <strong>Message</strong> {{message}}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      {% endfor %}
+    </div>
+    {% endfor %}
+
+
+
+    <!-- signup Modal -->
+    <div class="modal fade" id="signupmodel" tabindex="-1" aria-labelledby="signupmodel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupmodeltitle">SignUp Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                aria-describedby="username" placeholder="eg. abc12">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname"
+                                aria-describedby="fname" placeholder="First Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname"
+                                aria-describedby="lname" placeholder="Last Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="abc@gmail.com"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pass1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Enter your Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pass2" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Enter your Password Again">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginmodel" tabindex="-1" aria-labelledby="loginmodel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginmodeltitle">Login Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="loginusername" name="loginusername"
+                                aria-describedby="loginusername" placeholder="eg. abc12">
+                        </div>
+                       
+                        <div class="mb-3">
+                            <label for="pass" class="form-label">Enter Password</label>
+                            <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter your Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% block body %}{% endblock body %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
