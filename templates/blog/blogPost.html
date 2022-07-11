@@ -6,11 +6,17 @@
     
     <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{post.title}}</h2>
-        <p class="blog-post-meta">{{post.timeStamp}} <a href="#">{{post.author}}</a></p>
-        
+        <p class="blog-post-meta">{{post.timeStamp}} <a href="#">{{post.author}}</a></p>        
         <p>{{post.content}}</p>
         <hr>
         
     </article>
+</div>
+<div class="container">
+    <h2>Comments</h2>
+    <div class="row">
+        <div class="col-md-2">Image here</div>
+        <div class="col-md-10">Comment here</div>
+    </div>
 </div>
 {% endblock body %}
