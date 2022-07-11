@@ -70,35 +70,36 @@
                 </div>
                 <div class="modal-body">
                     <form action="/signup" method="post">
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="username" class="form-label">User Name</label>
                             <input type="text" class="form-control" id="username" name="username"
-                                aria-describedby="username" placeholder="eg. abc12">
+                                aria-describedby="username" placeholder="eg. abc12" required>
                         </div>
                         <div class="mb-3">
                             <label for="fname" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname"
-                                aria-describedby="fname" placeholder="First Name">
+                                aria-describedby="fname" placeholder="First Name" required>
                         </div>
                         <div class="mb-3">
                             <label for="lname" class="form-label">Last Name</label>
                             <input type="text" class="form-control" id="lname" name="lname"
-                                aria-describedby="lname" placeholder="Last Name">
+                                aria-describedby="lname" placeholder="Last Name" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="abc@gmail.com"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label for="pass1" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Enter your Password">
+                            <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Enter your Password" required>
                         </div>
                         <div class="mb-3">
                             <label for="pass2" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Enter your Password Again">
+                            <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Enter your Password Again" required>
                         </div>
-                        {% csrf_token %}
+                        
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                     </form>

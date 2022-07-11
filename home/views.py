@@ -48,7 +48,15 @@ def handleSignUp(request):
         pass2 = request.POST['pass2']
         
         #CHECKS FOR ERRORONUS INPUTS
-
+        if len(username)>10:
+            messages.error(request, "user name must be less than 10 characters")
+            return redirect('/')
+        if not username.isalnum():
+            return messages.error(request, "user name should only contains letters and numerics")
+            redirect('/')
+        if pass1 != pass2:
+            return messages.error(request, "Passwords donot match")
+            redirect('/')
         #CREATE USER
         myuser = User.objects.create_user(username, email, pass1)
         myuser.first_name= fname
