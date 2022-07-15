@@ -14,7 +14,8 @@ def blogPost(request, slug):
     comments = BlogComment.objects.filter(post = post)
     context = {
         'post': post, 
-        'comments': comments
+        'comments': comments, 
+        'user': request.user
     }
     return render(request, 'blog/blogPost.html', context)
 

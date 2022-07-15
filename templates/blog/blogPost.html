@@ -13,8 +13,9 @@
     </article>
 </div>
 <div class="container">
-    <h2>Comments</h2>
-    <div class="container">
+    <h2>Comments ({{comments.count}})</h2>
+    <div class="my-2">
+        {% if user.is_authenticated %}
     <form action="/blog/postComment" method="post">
         {% csrf_token %}
         <div class="mb-3">
@@ -23,10 +24,21 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      {% else %}
+      <p>Log in to post a comment
+      {% endif %}
     </div>
-    <div class="row">
-        <div class="col-md-2">Image here</div>
-        <div class="col-md-10">Comment here</div>
+    {% for comment in comments  %}
+    <div class="row my-2">
+        {% load humanize %}
+        <div class="col-md-1">
+            <img class="img-thumbnail rounded-circle" src="/static/img/user.png" alt="">
+        </div>
+        <div class="col-md-11"> <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp | naturaltime}}</span>
+            <div> {{comment.comment}}
+            </div>
+            </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock body %}
