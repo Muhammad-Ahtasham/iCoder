@@ -3,41 +3,62 @@
 {% block title %}BLog Post{% endblock title %}
 {% block body %}
 <div class="container my-3">
-    
+
     <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{post.title}}</h2>
-        <p class="blog-post-meta">{{post.timeStamp}} <a href="#">{{post.author}}</a></p>        
+        <p class="blog-post-meta">{{post.timeStamp}} <a href="#">{{post.author}}</a></p>
         <p>{{post.content}}</p>
         <hr>
-        
+
     </article>
 </div>
 <div class="container">
     <h2>Comments ({{comments.count}})</h2>
     <div class="my-2">
         {% if user.is_authenticated %}
-    <form action="/blog/postComment" method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <input class="form-control" type="text" name = "comment" placeholder="Enter Comment here">
-            <input type="hidden" name = "postSno" value="{{post.sno}}">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      {% else %}
-      <p>Log in to post a comment
-      {% endif %}
+        <form action="/blog/postComment" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input class="form-control" type="text" name="comment" placeholder="Enter Comment here">
+                <input type="hidden" name="postSno" value="{{post.sno}}">
+                <input type="hidden" name="parentSno" value="">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        <p>Log in to post a comment
+            {% endif %}
     </div>
-    {% for comment in comments  %}
+    {% for comment in comments %}
     <div class="row my-2">
         {% load humanize %}
         <div class="col-md-1">
             <img class="img-thumbnail rounded-circle" src="/static/img/user.png" alt="">
         </div>
-        <div class="col-md-11"> <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp | naturaltime}}</span>
-            <div> {{comment.comment}}
+        <div class="col-md-11"> <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp|naturaltime}}</span>
+            <div>
+                {{comment.comment}}
             </div>
+            <div class="reply-mx-0">
+                    <button class="btn btn-sm btn-secondary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="collapseExample">
+                        Reply
+                    </button>
+                  <div class="collapse" id="replyBox{{comment.sno}}">
+                    <div class="card card-body my-1">
+                        <form action="/blog/postComment" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input class="form-control" type="text" name="comment" placeholder="Enter Reply here">
+                                <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            </div>
+                            <input type="hidden" name="postSno" value="{{post.sno}}">
+                            <button type="submit" class="btn btn-secondary">Reply</button>
+                        </form>
+                    </div>
+                  </div>
             </div>
+        </div>
     </div>
     {% endfor %}
 </div>
