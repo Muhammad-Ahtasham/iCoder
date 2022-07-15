@@ -37,15 +37,18 @@
         <div class="col-md-1">
             <img class="img-thumbnail rounded-circle" src="/static/img/user.png" alt="">
         </div>
-        <div class="col-md-11"> <b>{{comment.user.username}}</b> <span class="badge bg-secondary">{{comment.timestamp|naturaltime}}</span>
+        <div class="col-md-11"> <b>{{comment.user.username}}</b> <span
+                class="badge bg-secondary">{{comment.timestamp|naturaltime}}</span>
             <div>
                 {{comment.comment}}
             </div>
             <div class="reply-mx-0">
-                    <button class="btn btn-sm btn-secondary my-2" type="button" data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="collapseExample">
-                        Reply
-                    </button>
-                  <div class="collapse" id="replyBox{{comment.sno}}">
+                {% if user.is_authenticated %}
+                <button class="btn btn-sm btn-secondary my-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="collapseExample">
+                    Reply
+                </button>
+                <div class="collapse" id="replyBox{{comment.sno}}">
                     <div class="card card-body my-1">
                         <form action="/blog/postComment" method="post">
                             {% csrf_token %}
@@ -57,10 +60,25 @@
                             <button type="submit" class="btn btn-secondary">Reply</button>
                         </form>
                     </div>
-                  </div>
-                  <div class="replies bg-danger">
+                </div>
+                {% else %}
+                <button class="btn btn-sm btn-secondary my-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="collapseExample" disabled>
+                Login to Reply
+            </button>
+                {% endif %}
+                <div class="replies">
                     {% for reply in replyDict|get_val:comment.sno %}
-                    {{reply}}
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img class="img-thumbnail rounded-circle w-75" src="/static/img/user.png" alt="">
+                        </div>
+                        <div class="col-md-11 mt-1"><b>{{reply.user.username}}</b> <span
+                            class="badge bg-secondary">{{reply.timestamp|naturaltime}}</span> <br>
+                            {{reply.comment}}
+                        </div>
+                    </div>
+                    
                     <br>
                     {% endfor %}
                 </div>
