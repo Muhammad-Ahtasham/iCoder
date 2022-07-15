@@ -33,6 +33,7 @@
     {% for comment in comments %}
     <div class="row my-2">
         {% load humanize %}
+        {% load extras %}
         <div class="col-md-1">
             <img class="img-thumbnail rounded-circle" src="/static/img/user.png" alt="">
         </div>
@@ -57,6 +58,12 @@
                         </form>
                     </div>
                   </div>
+                  <div class="replies bg-danger">
+                    {% for reply in replyDict|get_val:comment.sno %}
+                    {{reply}}
+                    <br>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
